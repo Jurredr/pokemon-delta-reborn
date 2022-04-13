@@ -1,13 +1,13 @@
-import { BlitzPage } from 'blitz'
+import { BlitzPage, useRouter } from 'blitz'
 import Layout from 'app/core/layouts/Layout'
+import { useEffect } from 'react'
 
 const Home: BlitzPage = () => {
-  return (
-    <div className="bg-black relative h-screen w-screen max-h-screen max-w-screen">
-      {/* <Game />
-      <ChatUI /> */}
-    </div>
-  )
+  const router = useRouter()
+  useEffect(() => {
+    router.push('/game')
+  }, [router])
+  return <div></div>
 }
 
 Home.suppressFirstRenderFlicker = true
