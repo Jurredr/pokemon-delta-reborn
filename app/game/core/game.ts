@@ -1,10 +1,9 @@
-import { Camera } from './camera'
+import { Client } from './client'
+import { Screen } from './view/screen'
 
 export class Game {
-  fps: number
-  canvas: HTMLCanvasElement
-  context: CanvasRenderingContext2D
-  camera: Camera
+  client: Client
+  screen: Screen
 
   constructor(canvas: HTMLCanvasElement, fps: number) {
     // Check canvas
@@ -14,34 +13,12 @@ export class Game {
       return
     }
 
-    // Set fps
-    this.fps = fps
-
-    // Set canvas
-    this.canvas = canvas
-    this.context = context
+    // Set screen
+    this.screen = new Screen(canvas, context, fps)
   }
 
   start() {
-    // Initialize the camera
-    this.camera = new Camera(this.canvas, this.fps)
-    this.camera.setScale(2)
-
-    setTimeout(() => {
-      this.camera.setScale(3)
-    }, 1000)
-
-    // Start the animator
-    requestAnimationFrame(() => this.animate())
-  }
-
-  animate() {
-    window.requestAnimationFrame(() => this.animate())
-    const image = new Image()
-    image.src = '/29.png'
-    image.onload = () => {
-      this.context.drawImage(image, 0, 0)
-    }
+    this.screen.start()
   }
 
   stop() {}
