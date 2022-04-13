@@ -20,12 +20,6 @@ export class Game {
     // Set canvas
     this.canvas = canvas
     this.context = context
-
-    // Resize fixer
-    window.onresize = (event: UIEvent) => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
   }
 
   start() {
@@ -37,6 +31,12 @@ export class Game {
       this.camera.setScale(3)
     }, 1000)
 
+    // Start the animator
+    requestAnimationFrame(() => this.animate())
+  }
+
+  animate() {
+    window.requestAnimationFrame(() => this.animate())
     const image = new Image()
     image.src = '/29.png'
     image.onload = () => {
