@@ -7,6 +7,6 @@ export class Client {
   player: PlayerEntity
 
   constructor() {
-    this.player = new PlayerEntity('jurre', new Location(new Position(), Direction.DOWN))
+    this.player = new PlayerEntity('jurre', new Location(new Position(0, 0), Direction.DOWN))
   }
 }

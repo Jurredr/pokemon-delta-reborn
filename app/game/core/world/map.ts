@@ -1,13 +1,14 @@
 import { TileSet } from '../util/tileset'
+import { Camera } from '../view/camera'
 
 export class Map {
   tileset: TileSet
 
-  render(context: CanvasRenderingContext2D) {
-    const image = new Image()
-    image.src = '/29.png'
-    image.onload = () => {
-      context.drawImage(image, 0, 0)
-    }
+  constructor(tileset: TileSet) {
+    this.tileset = tileset
+  }
+
+  draw(context: CanvasRenderingContext2D, camera: Camera) {
+    context.drawImage(this.tileset.image, -camera.x, -camera.y)
   }
 }

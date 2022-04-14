@@ -1,4 +1,6 @@
 import { Entity } from '../entity/entity'
+import { TileSet } from '../util/tileset'
+import { Camera } from '../view/camera'
 import { Map } from './map'
 
 export class World {
@@ -6,7 +8,7 @@ export class World {
   entities: Entity[]
 
   constructor() {
-    this.map = new Map()
+    this.map = new Map(new TileSet('/29.png', 324, 380, -1, -1))
     this.entities = []
   }
 
@@ -14,11 +16,13 @@ export class World {
     this.entities.push(entity)
   }
 
-  render(context: CanvasRenderingContext2D) {
-    // Render the map
-    this.map.render(context)
+  update() {}
 
-    // Render the entities
-    this.entities.forEach((entity) => entity.render(context))
+  draw(context: CanvasRenderingContext2D, camera: Camera) {
+    // Draw the map
+    this.map.draw(context, camera)
+
+    // Draw the entities
+    this.entities.forEach((entity) => entity.draw(context))
   }
 }

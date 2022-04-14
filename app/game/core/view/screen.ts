@@ -1,18 +1,13 @@
+import { World } from '../world/world'
 import { Camera } from './camera'
 
 export class Screen {
   canvas: HTMLCanvasElement
   context: CanvasRenderingContext2D
-  camera: Camera
   fps: number
-  worldRenderer: (context: CanvasRenderingContext2D) => void
+  camera: Camera
 
-  constructor(
-    canvas: HTMLCanvasElement,
-    context: CanvasRenderingContext2D,
-    fps: number,
-    worldRenderer: (context: CanvasRenderingContext2D) => void
-  ) {
+  constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, fps: number) {
     // Set canvas
     this.canvas = canvas
     context.imageSmoothingEnabled = false
@@ -21,27 +16,18 @@ export class Screen {
     // Set fps
     this.fps = fps
 
-    // Set world renderer
-    this.worldRenderer = worldRenderer
+    // Create camer
+    this.camera = new Camera()
   }
 
-  start() {
-    // Initialize the camera
-    this.camera = new Camera(this.canvas, this.fps)
-    this.camera.setScale(3)
-
-    // Start the animator
-    requestAnimationFrame(() => this.animate())
+  update() {
+    // Set canvas scale
+    this.canvas.width = window.innerWidth / this.camera.zoom
+    this.canvas.height = window.innerHeight / this.camera.zoom
   }
 
-  animate() {
-    window.requestAnimationFrame(() => this.animate())
-
-    // Render the world with all entities
-    if (this.worldRenderer) {
-      this.worldRenderer(this.context)
-    } else {
-      console.warn("[WARNING]: Screen couldn't find world renderer")
-    }
+  draw(world: World) {
+    // Draw the world
+    world.draw(this.context, this.camera)
   }
 }
