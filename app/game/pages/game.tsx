@@ -11,6 +11,6 @@ const GamePage: BlitzPage = () => {
 }
 
 GamePage.suppressFirstRenderFlicker = true
-GamePage.getLayout = (page) => <Layout title="Game">{page}</Layout>
+GamePage.getLayout = (page) => <Layout title="Pokémon Delta - Play">{page}</Layout>
 
 export default GamePage
