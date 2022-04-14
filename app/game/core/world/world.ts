@@ -23,6 +23,6 @@ export class World {
     this.map.draw(context, camera)
 
     // Draw the entities
-    this.entities.forEach((entity) => entity.draw(context))
+    this.entities.forEach((entity) => entity.draw(context, camera))
   }
 }

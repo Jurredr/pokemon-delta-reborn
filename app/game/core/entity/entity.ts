@@ -1,5 +1,6 @@
 import { Location } from '../util/location'
 import { TileSet } from '../util/tileset'
+import { Camera } from '../view/camera'
 
 export class Entity {
   id: string
@@ -9,18 +10,17 @@ export class Entity {
   constructor(id: string, location: Location) {
     this.id = id
     this.location = location
-    this.tileset = new TileSet('/boy_run.png', 32, 48)
   }
 
-  draw(context: CanvasRenderingContext2D) {
+  draw(context: CanvasRenderingContext2D, camera: Camera) {
     context.drawImage(
       this.tileset.image,
       0,
       0,
       this.tileset.tileWidth,
       this.tileset.tileHeight,
-      0,
-      0,
+      -camera.x,
+      -camera.y,
       this.tileset.tileWidth,
       this.tileset.tileHeight
     )
