@@ -18,7 +18,7 @@ const GameCanvas: React.FC = () => {
       ref={canvas}
       className="h-full w-full relative"
       style={{ imageRendering: 'pixelated', touchAction: 'manipulation' }}
-    ></canvas>
+    />
   )
 }
 

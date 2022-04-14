@@ -9,7 +9,6 @@ export class Map {
   }
 
   draw(context: CanvasRenderingContext2D, camera: Camera) {
-    console.log(-camera.x, -camera.y)
     context.drawImage(this.tileset.image, -camera.x, -camera.y)
   }
 }

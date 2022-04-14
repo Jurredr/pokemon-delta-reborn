@@ -29,7 +29,7 @@ export class Game {
     this.world.spawnEntity(this.client.player)
     this.screen.camera.zoom = 5.0
     this.screen.camera.follow = this.client.player
-    this.screen.start()
+    this.screen.start(this.world)
 
     // Start updater
     requestAnimationFrame(() => this.update())

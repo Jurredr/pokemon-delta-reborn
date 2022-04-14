@@ -20,7 +20,7 @@ export class Screen {
     this.camera = new Camera()
   }
 
-  start() {
+  start(world: World) {
     // Set initial size & camera
     updateSizeAndCamera(this.canvas, this.camera)
 
@@ -34,23 +34,29 @@ export class Screen {
       canvas.height = window.innerHeight / camera.zoom
 
       if (camera.follow) {
-        camera.x = Math.round(camera.follow.location.position.x - canvas.width / 2 + 16)
-        camera.y = Math.round(camera.follow.location.position.y - canvas.height / 2 + 16)
-        console.log('updated:', camera.x, camera.y)
+        const follow = camera.follow
+        camera.x =
+          follow.location.position.x * world.map.tileset.tileWidth +
+          follow.tileset.offsetX -
+          Math.round(canvas.width / 2) +
+          8
+
+        camera.y =
+          follow.location.position.y * world.map.tileset.tileHeight +
+          follow.tileset.offsetY -
+          Math.round(canvas.height / 2) +
+          8
       }
     }
   }
 
-  update() {
-    // Update camera position if following
-    // if (this.camera.follow) {
-    //   this.camera.x = this.camera.follow.location.position.x - this.canvas.width / 2 + 16
-    //   this.camera.y = this.camera.follow.location.position.y - this.canvas.height / 2 + 16
-    //   console.log('updated:', this.camera.x, this.camera.y)
-    // }
-  }
+  update() {}
 
   draw(world: World) {
+    // Draw the background
+    this.context.fillStyle = 'black'
+    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
+
     // Draw the world
     world.draw(this.context, this.camera)
   }
