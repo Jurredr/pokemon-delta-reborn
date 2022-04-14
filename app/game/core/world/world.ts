@@ -8,7 +8,7 @@ export class World {
   entities: Entity[]
 
   constructor() {
-    this.map = new Map(new TileSet('/29.png', 324, 380, -1, -1))
+    this.map = new Map(new TileSet('/29.png', -1, -1))
     this.entities = []
   }
 

@@ -9,7 +9,7 @@ export class Entity {
   constructor(id: string, location: Location) {
     this.id = id
     this.location = location
-    this.tileset = new TileSet('/boy_run.png', 128, 192, 32, 48)
+    this.tileset = new TileSet('/boy_run.png', 32, 48)
   }
 
   draw(context: CanvasRenderingContext2D) {
