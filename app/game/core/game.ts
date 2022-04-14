@@ -39,7 +39,7 @@ export class Game {
     window.requestAnimationFrame(() => this.update())
 
     this.world.update()
-    this.screen.update()
+    this.screen.update(this.world)
     this.draw()
   }
 

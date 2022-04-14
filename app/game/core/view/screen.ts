@@ -50,7 +50,22 @@ export class Screen {
     }
   }
 
-  update() {}
+  update(world: World) {
+    if (this.camera.follow) {
+      const follow = this.camera.follow
+      this.camera.x =
+        follow.location.position.x * world.map.tileset.tileWidth +
+        follow.tileset.offsetX -
+        Math.round(this.canvas.width / 2) +
+        8
+
+      this.camera.y =
+        follow.location.position.y * world.map.tileset.tileHeight +
+        follow.tileset.offsetY -
+        Math.round(this.canvas.height / 2) +
+        12
+    }
+  }
 
   draw(world: World) {
     // Draw the background

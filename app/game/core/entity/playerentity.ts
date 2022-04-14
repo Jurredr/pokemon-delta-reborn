@@ -5,7 +5,7 @@ import { Entity } from './entity'
 export class PlayerEntity extends Entity {
   constructor(id: string, location: Location) {
     super(id, location)
-    this.tileset = new TileSet('/boy_run.png', 32, 48, 0, -16)
+    this.tileset = new TileSet('/boy_run.png', 32, 48, 0, 8)
 
     window.onkeydown = (ev: KeyboardEvent) => {
       if (ev.key === 'w') {
