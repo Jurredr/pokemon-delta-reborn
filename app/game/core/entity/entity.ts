@@ -19,10 +19,10 @@ export class Entity {
       0,
       this.tileset.tileWidth,
       this.tileset.tileHeight,
-      -camera.x,
-      -camera.y,
-      this.tileset.tileWidth,
-      this.tileset.tileHeight
+      -camera.x + this.location.position.x,
+      -camera.y + this.location.position.y,
+      this.tileset.tileWidth / 2,
+      this.tileset.tileHeight / 2
     )
   }
 }

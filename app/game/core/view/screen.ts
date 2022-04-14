@@ -16,14 +16,38 @@ export class Screen {
     // Set fps
     this.fps = fps
 
-    // Create camer
+    // Create camera
     this.camera = new Camera()
   }
 
+  start() {
+    // Set initial size & camera
+    updateSizeAndCamera(this.canvas, this.camera)
+
+    // Update size & camera on resize
+    window.onresize = (ev: UIEvent) => {
+      updateSizeAndCamera(this.canvas, this.camera)
+    }
+
+    function updateSizeAndCamera(canvas: HTMLCanvasElement, camera: Camera) {
+      canvas.width = window.innerWidth / camera.zoom
+      canvas.height = window.innerHeight / camera.zoom
+
+      if (camera.follow) {
+        camera.x = Math.round(camera.follow.location.position.x - canvas.width / 2 + 16)
+        camera.y = Math.round(camera.follow.location.position.y - canvas.height / 2 + 16)
+        console.log('updated:', camera.x, camera.y)
+      }
+    }
+  }
+
   update() {
-    // Set canvas scale
-    this.canvas.width = window.innerWidth / this.camera.zoom
-    this.canvas.height = window.innerHeight / this.camera.zoom
+    // Update camera position if following
+    // if (this.camera.follow) {
+    //   this.camera.x = this.camera.follow.location.position.x - this.canvas.width / 2 + 16
+    //   this.camera.y = this.camera.follow.location.position.y - this.canvas.height / 2 + 16
+    //   console.log('updated:', this.camera.x, this.camera.y)
+    // }
   }
 
   draw(world: World) {
