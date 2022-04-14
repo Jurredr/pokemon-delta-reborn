@@ -5,8 +5,14 @@ export class Screen {
   context: CanvasRenderingContext2D
   camera: Camera
   fps: number
+  worldRenderer: (context: CanvasRenderingContext2D) => void
 
-  constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, fps: number) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D,
+    fps: number,
+    worldRenderer: (context: CanvasRenderingContext2D) => void
+  ) {
     // Set canvas
     this.canvas = canvas
     context.imageSmoothingEnabled = false
@@ -14,6 +20,9 @@ export class Screen {
 
     // Set fps
     this.fps = fps
+
+    // Set world renderer
+    this.worldRenderer = worldRenderer
   }
 
   start() {
@@ -27,10 +36,12 @@ export class Screen {
 
   animate() {
     window.requestAnimationFrame(() => this.animate())
-    const image = new Image()
-    image.src = '/29.png'
-    image.onload = () => {
-      this.context.drawImage(image, 0, 0)
+
+    // Render the world with all entities
+    if (this.worldRenderer) {
+      this.worldRenderer(this.context)
+    } else {
+      console.warn("[WARNING]: Screen couldn't find world renderer")
     }
   }
 }
