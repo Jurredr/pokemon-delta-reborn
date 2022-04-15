@@ -8,7 +8,7 @@ export class Map {
     this.tileset = tileset
   }
 
-  draw(context: CanvasRenderingContext2D, camera: Camera) {
+  draw(context: CanvasRenderingContext2D, camera: Camera, deltaTime: number) {
     context.drawImage(this.tileset.image, -camera.x, -camera.y)
   }
 }

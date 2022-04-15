@@ -8,7 +8,7 @@ export class World {
   entities: Entity[]
 
   constructor() {
-    this.map = new Map(new TileSet('/29.png', 16, 16, 0, 0))
+    this.map = new Map(new TileSet('/29.png', 16, 16))
     this.entities = []
   }
 
@@ -16,13 +16,15 @@ export class World {
     this.entities.push(entity)
   }
 
-  update() {}
+  update(deltaTime: number) {
+    this.entities.forEach((entity) => entity.update(deltaTime))
+  }
 
-  draw(context: CanvasRenderingContext2D, camera: Camera) {
+  draw(context: CanvasRenderingContext2D, camera: Camera, deltaTime: number) {
     // Draw the map
-    this.map.draw(context, camera)
+    this.map.draw(context, camera, deltaTime)
 
     // Draw the entities
-    this.entities.forEach((entity) => entity.draw(context, camera))
+    this.entities.forEach((entity) => entity.draw(context, camera, deltaTime))
   }
 }

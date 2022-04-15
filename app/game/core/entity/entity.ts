@@ -1,28 +1,32 @@
 import { Location } from '../util/location'
 import { TileSet } from '../util/tileset'
 import { Camera } from '../view/camera'
+import { EntityAnimator } from './entityanimator'
+import { EntityMovementHandler } from './entitymovementhandler'
+import { EntityType } from './entitytype'
 
 export class Entity {
   id: string
+  type: EntityType
   location: Location
   tileset: TileSet
+  animator: EntityAnimator
+  movement: EntityMovementHandler
 
-  constructor(id: string, location: Location) {
+  constructor(id: string, type: EntityType, location: Location) {
     this.id = id
+    this.type = type
     this.location = location
+
+    this.animator = new EntityAnimator(this.tileset, this.location)
+    this.movement = new EntityMovementHandler(location, this.animator)
   }
 
-  draw(context: CanvasRenderingContext2D, camera: Camera) {
-    context.drawImage(
-      this.tileset.image,
-      0,
-      0,
-      this.tileset.tileWidth,
-      this.tileset.tileHeight,
-      -camera.x + this.location.position.x * 16 + this.tileset.offsetX,
-      -camera.y + this.location.position.y * 16 + this.tileset.offsetY,
-      this.tileset.tileWidth / 2,
-      this.tileset.tileHeight / 2
-    )
+  update(deltaTime: number) {
+    this.movement.update(deltaTime)
+  }
+
+  draw(context: CanvasRenderingContext2D, camera: Camera, deltaTime: number) {
+    this.animator.draw(context, camera, deltaTime)
   }
 }

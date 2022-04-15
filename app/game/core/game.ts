@@ -51,17 +51,17 @@ export class Game {
 
     if (deltaTime > frameInterval) {
       // Perform updates
-      this.world.update()
+      this.world.update(deltaTime)
       this.screen.update(this.world)
-      this.draw()
+      this.draw(deltaTime)
 
       // Update last time
       this.lastTime = currentTime - (deltaTime % frameInterval)
     }
   }
 
-  draw() {
-    this.screen.draw(this.world)
+  draw(deltaTime: number) {
+    this.screen.draw(this.world, deltaTime)
   }
 
   stop() {}

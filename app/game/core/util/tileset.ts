@@ -4,16 +4,8 @@ export class TileSet {
   height: number
   tileWidth: number
   tileHeight: number
-  offsetX: number
-  offsetY: number
 
-  constructor(
-    src: string,
-    tileWidth: number,
-    tileHeight: number,
-    offsetX: number,
-    offsetY: number
-  ) {
+  constructor(src: string, tileWidth: number, tileHeight: number) {
     const image = new Image()
     image.src = src
     this.image = image
@@ -22,9 +14,6 @@ export class TileSet {
     this.height = image.height
     this.tileWidth = tileWidth
     this.tileHeight = tileHeight
-
-    this.offsetX = offsetX
-    this.offsetY = offsetY
   }
 
   drawTile(
@@ -36,12 +25,12 @@ export class TileSet {
   ) {
     context.drawImage(
       this.image,
-      x,
-      y,
-      this.tileWidth,
-      this.tileHeight,
       spriteX * this.tileWidth,
       spriteY * this.tileHeight,
+      this.tileWidth,
+      this.tileHeight,
+      x,
+      y,
       this.tileWidth / 2,
       this.tileHeight / 2
     )

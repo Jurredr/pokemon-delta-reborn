@@ -37,13 +37,13 @@ export class Screen {
         const follow = camera.follow
         camera.x =
           follow.location.position.x * world.map.tileset.tileWidth +
-          follow.tileset.offsetX -
+          follow.location.imgOffsetX -
           Math.round(canvas.width / 2) +
           8
 
         camera.y =
           follow.location.position.y * world.map.tileset.tileHeight +
-          follow.tileset.offsetY -
+          follow.location.imgOffsetY -
           Math.round(canvas.height / 2) +
           8
       }
@@ -55,24 +55,24 @@ export class Screen {
       const follow = this.camera.follow
       this.camera.x =
         follow.location.position.x * world.map.tileset.tileWidth +
-        follow.tileset.offsetX -
+        follow.location.imgOffsetX -
         Math.round(this.canvas.width / 2) +
         8
 
       this.camera.y =
         follow.location.position.y * world.map.tileset.tileHeight +
-        follow.tileset.offsetY -
+        follow.location.imgOffsetY -
         Math.round(this.canvas.height / 2) +
         12
     }
   }
 
-  draw(world: World) {
+  draw(world: World, deltaTime: number) {
     // Draw the background
     this.context.fillStyle = 'black'
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
     // Draw the world
-    world.draw(this.context, this.camera)
+    world.draw(this.context, this.camera, deltaTime)
   }
 }

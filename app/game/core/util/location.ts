@@ -4,6 +4,8 @@ import { Position } from './position'
 export class Location {
   position: Position
   facing: Direction | undefined
+  imgOffsetX: number
+  imgOffsetY: number
 
   constructor(position: Position, facing: Direction | undefined) {
     this.position = position
