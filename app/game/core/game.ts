@@ -6,6 +6,8 @@ export class Game {
   client: Client
   world: World
   screen: Screen
+  lastTime: number
+  fps: number
 
   constructor(canvas: HTMLCanvasElement, fps: number) {
     // Check canvas
@@ -23,6 +25,7 @@ export class Game {
 
     // Create the screen
     this.screen = new Screen(canvas, context, fps)
+    this.fps = fps
   }
 
   start() {
@@ -32,15 +35,29 @@ export class Game {
     this.screen.start(this.world)
 
     // Start updater
-    requestAnimationFrame(() => this.update())
+    window.requestAnimationFrame(this.update.bind(this))
   }
 
-  update() {
-    window.requestAnimationFrame(() => this.update())
+  update(currentTime: number) {
+    // Initialize lastTime if needed
+    if (!this.lastTime) {
+      this.lastTime = currentTime
+    }
+    window.requestAnimationFrame(this.update.bind(this))
 
-    this.world.update()
-    this.screen.update(this.world)
-    this.draw()
+    // Ensure consistent FPS
+    const deltaTime = currentTime - this.lastTime
+    const frameInterval = 1000 / this.fps
+
+    if (deltaTime > frameInterval) {
+      // Perform updates
+      this.world.update()
+      this.screen.update(this.world)
+      this.draw()
+
+      // Update last time
+      this.lastTime = currentTime - (deltaTime % frameInterval)
+    }
   }
 
   draw() {
