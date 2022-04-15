@@ -27,7 +27,13 @@ export class TileSet {
     this.offsetY = offsetY
   }
 
-  drawTile(x, y, spriteX, spriteY, context) {
+  drawTile(
+    x: number,
+    y: number,
+    spriteX: number,
+    spriteY: number,
+    context: CanvasRenderingContext2D
+  ) {
     context.drawImage(
       this.image,
       x,
