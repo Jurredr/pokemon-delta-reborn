@@ -8,6 +8,7 @@ export class Game {
   screen: Screen
   lastTime: number
   fps: number
+  timeMeasurements: number[]
 
   constructor(canvas: HTMLCanvasElement, fps: number) {
     // Check canvas
@@ -25,7 +26,10 @@ export class Game {
 
     // Create the screen
     this.screen = new Screen(canvas, context, fps)
+
+    // FPS
     this.fps = fps
+    this.timeMeasurements = []
   }
 
   start() {
@@ -48,6 +52,16 @@ export class Game {
     // Ensure consistent FPS
     const deltaTime = currentTime - this.lastTime
     const frameInterval = 1000 / this.fps
+
+    // FPS counter
+    this.timeMeasurements.push(currentTime)
+    const msPassed =
+      (this.timeMeasurements[this.timeMeasurements.length - 1] ?? 0) -
+      (this.timeMeasurements[0] ?? 0)
+    if (msPassed >= 1000) {
+      console.log(Math.floor((this.timeMeasurements.length / msPassed) * 1000))
+      this.timeMeasurements = []
+    }
 
     if (deltaTime > frameInterval) {
       // Perform updates
