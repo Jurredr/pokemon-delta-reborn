@@ -19,14 +19,14 @@ export class Entity {
     this.location = location
 
     this.animator = new EntityAnimator(this.tileset, this.location)
-    this.movement = new EntityMovementHandler(location, this.animator)
+    this.movement = new EntityMovementHandler(this)
   }
 
   update(deltaTime: number) {
     this.movement.update(deltaTime)
   }
 
-  draw(context: CanvasRenderingContext2D, camera: Camera, deltaTime: number) {
-    this.animator.draw(context, camera, deltaTime)
+  draw(context: CanvasRenderingContext2D, camera: Camera, deltaTime: number, fps: number) {
+    this.animator.draw(context, camera, deltaTime, fps)
   }
 }

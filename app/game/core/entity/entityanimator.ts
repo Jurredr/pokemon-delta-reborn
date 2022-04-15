@@ -18,13 +18,15 @@ export class EntityAnimator {
     this.frameCount = 0
   }
 
-  draw(context: CanvasRenderingContext2D, camera: Camera, deltaTime: number) {
+  draw(context: CanvasRenderingContext2D, camera: Camera, deltaTime: number, fps: number) {
+    // console.log(this.spritePosition)
     if (this.playing) {
-      this.frameCount += deltaTime
-      if (this.frameCount >= 1000 / 60) {
-        this.frameCount -= 1000 / 60
+      this.frameCount += deltaTime / (1000 / fps)
+      if (this.frameCount >= 1000 / fps) {
+        this.frameCount -= 1000 / fps
         this.spritePosition.x += 1
-        if (this.spritePosition.x >= this.tileset.width) this.spritePosition.x = 0
+        if (this.spritePosition.x >= this.tileset.width / this.tileset.tileWidth)
+          this.spritePosition.x = 0
       }
     }
     this.tileset.drawTile(

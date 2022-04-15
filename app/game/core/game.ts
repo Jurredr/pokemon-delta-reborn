@@ -61,7 +61,7 @@ export class Game {
   }
 
   draw(deltaTime: number) {
-    this.screen.draw(this.world, deltaTime)
+    this.screen.draw(this.world, deltaTime, this.fps)
   }
 
   stop() {}

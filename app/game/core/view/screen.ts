@@ -67,12 +67,12 @@ export class Screen {
     }
   }
 
-  draw(world: World, deltaTime: number) {
+  draw(world: World, deltaTime: number, fps: number) {
     // Draw the background
     this.context.fillStyle = 'black'
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
     // Draw the world
-    world.draw(this.context, this.camera, deltaTime)
+    world.draw(this.context, this.camera, deltaTime, fps)
   }
 }

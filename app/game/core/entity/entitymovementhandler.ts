@@ -1,10 +1,8 @@
-import { Direction, fromAnimatorY } from '../util/direction'
-import { Location } from '../util/location'
-import { EntityAnimator } from './entityanimator'
+import { fromAnimatorY } from '../util/direction'
+import { Entity } from './entity'
 
 export class EntityMovementHandler {
-  location: Location
-  animator: EntityAnimator
+  entity: Entity
 
   initialImgOffsetX: number
   initialImgOffsetY: number
@@ -12,60 +10,59 @@ export class EntityMovementHandler {
   speed: number
   moving: boolean
 
-  constructor(location: Location, animator: EntityAnimator) {
-    this.location = location
-    this.animator = animator
-    this.location.facing = fromAnimatorY(this.animator.spritePosition.y)
+  constructor(entity: Entity) {
+    this.entity = entity
+    entity.location.facing = fromAnimatorY(entity.animator.spritePosition.y)
 
-    this.initialImgOffsetX = location.imgOffsetX
-    this.initialImgOffsetY = location.imgOffsetY
+    this.initialImgOffsetX = entity.location.imgOffsetX
+    this.initialImgOffsetY = entity.location.imgOffsetY
 
-    this.speed = 128
+    this.speed = 32
     this.moving = false
   }
 
   move(x: number, y: number) {
     if (this.moving) return
 
-    if (y > 0) this.animator.spritePosition.y = 0
-    if (x < 0) this.animator.spritePosition.y = 1
-    if (x > 0) this.animator.spritePosition.y = 2
-    if (y < 0) this.animator.spritePosition.y = 3
-    this.location.facing = fromAnimatorY(this.animator.spritePosition.y)
+    if (y > 0) this.entity.animator.spritePosition.y = 0
+    if (x < 0) this.entity.animator.spritePosition.y = 1
+    if (x > 0) this.entity.animator.spritePosition.y = 2
+    if (y < 0) this.entity.animator.spritePosition.y = 3
+    this.entity.location.facing = fromAnimatorY(this.entity.animator.spritePosition.y)
 
-    this.location.position.x += x
-    this.location.position.y += y
+    this.entity.location.position.x += x
+    this.entity.location.position.y += y
 
-    this.location.imgOffsetX -= x * 16
-    this.location.imgOffsetY -= y * 16
+    this.entity.location.imgOffsetX -= x * 16
+    this.entity.location.imgOffsetY -= y * 16
 
     this.moving = true
-    this.animator.playing = true
+    this.entity.animator.playing = true
   }
 
   update(deltaTime: number) {
     if (!this.moving) {
-      this.animator.playing = false
-      this.animator.spritePosition.x = 0
+      this.entity.animator.playing = false
+      this.entity.animator.spritePosition.x = 0
     }
 
     const speed = (this.speed / 1000) * deltaTime
 
-    const distX = this.initialImgOffsetX - this.location.imgOffsetX
-    const distY = this.initialImgOffsetY - this.location.imgOffsetY
+    const distX = this.initialImgOffsetX - this.entity.location.imgOffsetX
+    const distY = this.initialImgOffsetY - this.entity.location.imgOffsetY
 
     const dx = Math.min(Math.abs(distX), speed) * Math.sign(distX)
     const dy = Math.min(Math.abs(distY), speed) * Math.sign(distY)
 
-    this.location.imgOffsetX += dx
-    this.location.imgOffsetY += dy
+    this.entity.location.imgOffsetX += dx
+    this.entity.location.imgOffsetY += dy
 
     if (
-      Math.abs(this.initialImgOffsetX - this.location.imgOffsetX) < 0.01 &&
-      Math.abs(this.initialImgOffsetY - this.location.imgOffsetY) < 0.01
+      Math.abs(this.initialImgOffsetX - this.entity.location.imgOffsetX) < 0.01 &&
+      Math.abs(this.initialImgOffsetY - this.entity.location.imgOffsetY) < 0.01
     ) {
-      this.location.imgOffsetX = this.initialImgOffsetX
-      this.location.imgOffsetY = this.initialImgOffsetY
+      this.entity.location.imgOffsetX = this.initialImgOffsetX
+      this.entity.location.imgOffsetY = this.initialImgOffsetY
       this.moving = false
     }
   }
