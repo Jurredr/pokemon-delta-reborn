@@ -9,6 +9,8 @@ export class TileSet {
     const image = new Image()
     image.src = src
     this.image = image
+    this.width = 0
+    this.height = 0
     image.onload = () => {
       this.width = image.width
       this.height = image.height

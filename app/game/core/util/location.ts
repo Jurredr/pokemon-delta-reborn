@@ -10,5 +10,7 @@ export class Location {
   constructor(position: Position, facing: Direction | undefined) {
     this.position = position
     this.facing = facing
+    this.imgOffsetX = 0
+    this.imgOffsetY = 0
   }
 }
