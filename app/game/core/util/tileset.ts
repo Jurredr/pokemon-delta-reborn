@@ -26,4 +26,18 @@ export class TileSet {
     this.offsetX = offsetX
     this.offsetY = offsetY
   }
+
+  drawTile(x, y, spriteX, spriteY, context) {
+    context.drawImage(
+      this.image,
+      x,
+      y,
+      this.tileWidth,
+      this.tileHeight,
+      spriteX * this.tileWidth,
+      spriteY * this.tileHeight,
+      this.tileWidth / 2,
+      this.tileHeight / 2
+    )
+  }
 }
