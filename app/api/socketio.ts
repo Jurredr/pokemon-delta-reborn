@@ -18,6 +18,14 @@ const handler: BlitzApiHandler = (req: BlitzApiRequest, res: BlitzApiResponseSer
     const io = new ServerIO(httpServer, {
       path: '/api/socketio'
     })
+
+    io.on('connection', (socket) => {
+      socket.broadcast.emit('a user connected')
+      socket.on('hello', (msg) => {
+        socket.emit('hello', 'world!')
+      })
+    })
+
     // append SocketIO server to Next.js socket server response
     res.socket.server.io = io
   }
